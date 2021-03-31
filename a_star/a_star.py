@@ -4,7 +4,7 @@ import sys
 
 def main():
     if len(sys.argv) < 7:
-        print("usage: python3 a_star.py width length x,y(start) x,y(end) normal_cost diagonal_cost (x,y),(x,y),...(blocked nodes)")
+        print("usage: python3 a_star.py width length x,y(start) x,y(end) normal_cost diagonal_cost x,y(blocked node) x,y(blocked node) ...")
         exit()
 
     width = int(sys.argv[1])
