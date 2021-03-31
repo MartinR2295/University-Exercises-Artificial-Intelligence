@@ -4,4 +4,4 @@ This is the git repo of some exercises to try some ai algorithms of my universit
 
 ## A-Star Algorithm
 
-[See here](a_star/README.md)
+[See here](a_star)
