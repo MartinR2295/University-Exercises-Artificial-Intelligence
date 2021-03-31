@@ -40,37 +40,44 @@ def main():
     first_generation = Generation(initial_chromosomes)
     generations = [first_generation]
 
-    while(max_generations > len(generations)):
+    ts_gui = TSGUI(nodes)
+    ts_gui.chromosome = initial_chromosomes[0]
+
+    def clickOnNext():
         #do the selection and get the new generation
         new_generation = generations[-1].new_generation(selection_amount, fitness_function)
         top = new_generation.chromosomes[0]
-        show_gui(nodes, new_generation.chromosomes[0])
         print("costs: {}".format(new_generation.chromosomes[0].get_fitness(fitness_function)))
-
+        ts_gui.chromosome = top
+        ts_gui.update_lines()
         #if the first chromosome in the new_generation reach the goal, we can quit.
         # The generation is ordered, so we have the best at the first chromosome.
+        finished = False
         if new_generation.chromosomes[0].get_fitness(fitness_function) <= fitness_goal:
-            break
+            finished = True
 
-        #make childrens, mutationns and randoms
-        new_generation.create_childrens(crossover_amount)
-        new_generation.create_mutations(mutation_amount, mutation_rate)
-        new_generation.create_randoms(random_amount)
+        if not finished:
+            #make childrens, mutationns and randoms
+            new_generation.create_childrens(crossover_amount)
+            new_generation.create_mutations(mutation_amount, mutation_rate)
+            new_generation.create_randoms(random_amount)
 
-        #append it to out generations
-        generations.append(new_generation)
+            #append it to out generations
+            generations.append(new_generation)
 
-    best_chromosome = generations[-1].chromosomes[0]
+            if len(generations) < max_generations:
+                return
 
-    for node in best_chromosome.nodes:
-        print(node.name)
+        best_chromosome = generations[-1].chromosomes[0]
 
-    show_gui(nodes, best_chromosome, main_loop=True)
+        for node in best_chromosome.nodes:
+            print(node.name)
 
-def show_gui(nodes, chromosome, main_loop = False):
-    ts_gui = TSGUI(nodes)
-    ts_gui.chromosome = chromosome
-    ts_gui.draw(main_loop)
+        ts_gui.quit()
+
+    ts_gui.clickCallback = clickOnNext
+    ts_gui.draw()
+
 
 
 if __name__ == '__main__':

@@ -28,28 +28,36 @@ class TSGUI(object):
 
         self.root = tkinter.Tk()
 
+    def update_lines(self):
+        for i in range(len(self.chromosome.nodes)-1):
+            from_node = self.chromosome.nodes[i]
+            to_node = self.chromosome.nodes[i+1]
+            line = self.lines[i]
+            self.canvas.coords(line, from_node.x,from_node.y,to_node.x,to_node.y)
+
     # draw the graph
     def draw(self, with_loop = False):
         self.root.title("TS Result")
-        canvas = tkinter.Canvas(self.root, bg="white", height=self.height,
+        self.canvas = tkinter.Canvas(self.root, bg="white", height=self.height,
                                 width=self.width)
-
-        for node in self.nodes:
-            self.create_circle(canvas, node.x, node.y, node.size/2.0, node.color)
 
         if self.chromosome:
             for i in range(len(self.chromosome.nodes)-1):
                 from_node = self.chromosome.nodes[i]
                 to_node = self.chromosome.nodes[i+1]
-                canvas.create_line(from_node.x,from_node.y,to_node.x,to_node.y, fill="red")
+                line = self.canvas.create_line(from_node.x,from_node.y,to_node.x,to_node.y, fill="#777")
+                self.lines.append(line)
+
+        for node in self.nodes:
+            self.create_circle(self.canvas, node.x, node.y, node.size/2.0, node.color)
+            self.canvas.create_text((node.x, node.y), text=node.name)
 
         def callback(event):
-            print("next")
-            self.root.destroy()
+            self.clickCallback()
 
         # add to the window and show it
-        canvas.pack()
-        canvas.bind("<Button-1>", callback)
+        self.canvas.pack()
+        self.canvas.bind("<Button-1>", callback)
 
         self.root.mainloop()
 
