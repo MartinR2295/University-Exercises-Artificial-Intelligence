@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from src.grid import Grid
 import sys
+from src.grid_gui import GridGUI
 
 
 def main():
@@ -39,6 +40,13 @@ def main():
         for point in path.path:
             node = point.node
             print("x,y: {},{} - s:{}, g:{}, h:{}".format(node.x, node.y, point.s, point.g, point.h))
+
+    # draw the result
+    gridGui = GridGUI(grid, 50, 50)
+    gridGui.add_paths(paths)
+    gridGui.change_node_type(start_node, 2)
+    gridGui.change_node_type(end_node, 3)
+    gridGui.draw()
 
 
 if __name__ == '__main__':

@@ -30,6 +30,7 @@ python3 a_star.py 5 4 0,3 4,0 10 14 1,1 1,2 3,1 4,2
 ```
 
 Output
+![example image](example.png)
 
 ```shell
 Paths found: 3
