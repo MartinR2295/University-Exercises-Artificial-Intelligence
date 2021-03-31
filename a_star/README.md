@@ -2,14 +2,14 @@
 
 This is a python script to try the a-star algorithm.
 
-##Usage
+## Usage
 ```shell
 python3 a_star.py {width} {length} {x,y}(start) 
 {x,y}(end) {normal_cost} {diagonal_cost} 
 {x,y}(blocked node) {x,y}(blocked node) ...
 ```
 
-###Example
+### Example
 In this example you see a 5x4 grid.\
 The starting point is on the 
 position x = 0 and y = 3.\
