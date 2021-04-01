@@ -1,64 +1,26 @@
 # A-Star Algorithm
 
-This is a python script to try the a-star algorithm.
+This is a python script to try cellular systems.
 
 ## Usage
 ```shell
-python3 a_star.py {width} {length} {x,y}(start) 
-{x,y}(end) {normal_cost} {diagonal_cost} 
-{x,y}(blocked node) {x,y}(blocked node) ...
+python3 cellular_systems.py {height} {width} {block_size}
 ```
 
-### Example
-In this example you see a 5x4 grid.\
-The starting point is on the 
-position x = 0 and y = 3.\
-The end point is on the position x = 4 and y = 0.\
-The normal costs are 10 and the diagonal costs are 14.\
-We have 4 wall elements on 1|1, 1|2, 3|1 and 4|2.
+height = height in blocks\
+width = width in blocks\
+block_size = size of one block in pixel
 
-It looks like something like this.\
-y\
-3 s □ □ □ □\
-2 □ ■ □ □ ■\
-1 □ ■ □ ■ □\
-0 □ □ □ □ e\
-n 0 1 2 3 4 x
+After the command you can click on any free block, to make it alive.
+If you press enter in the console, it executes one round.
+You can set the alive states of blocks in each round.
+
+### Example
+
 
 ```shell
-python3 a_star.py 5 4 0,3 4,0 10 14 1,1 1,2 3,1 4,2
+python3 cellular_systems.py 15 15 20
 ```
 
 Output\
 ![example image](example.png)
-
-```shell
-Paths found: 3
-
-0 - PATH
---------------------------------
-x,y: 0,3 - s:52, g:0, h:52
-x,y: 1,3 - s:52, g:10, h:42
-x,y: 2,2 - s:52, g:24, h:28
-x,y: 2,1 - s:58, g:34, h:24
-x,y: 3,0 - s:58, g:48, h:10
-x,y: 4,0 - s:58, g:58, h:0
-
-1 - PATH
---------------------------------
-x,y: 0,3 - s:52, g:0, h:52
-x,y: 1,3 - s:52, g:10, h:42
-x,y: 2,2 - s:52, g:24, h:28
-x,y: 3,2 - s:58, g:34, h:24
-x,y: 4,1 - s:58, g:48, h:10
-x,y: 4,0 - s:58, g:58, h:0
-
-2 - PATH
---------------------------------
-x,y: 0,3 - s:52, g:0, h:52
-x,y: 1,3 - s:52, g:10, h:42
-x,y: 2,3 - s:58, g:20, h:38
-x,y: 3,2 - s:58, g:34, h:24
-x,y: 4,1 - s:58, g:48, h:10
-x,y: 4,0 - s:58, g:58, h:0
-```

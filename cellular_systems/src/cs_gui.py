@@ -1,6 +1,6 @@
 import tkinter
 from .grid import Grid
-from .cell import Cell
+
 '''
 GridGUI class
 
@@ -8,7 +8,7 @@ class to draw the result of a grid
 '''
 
 
-class TSGUI(object):
+class CSGUI(object):
 
     def __init__(self, grid: Grid, block_width=50, block_height=50):
         self.grid = grid
@@ -20,38 +20,56 @@ class TSGUI(object):
         self.height = len(self.grid.grid) * self.block_height - 2
         self.width = len(self.grid.grid[0]) * self.block_width - 2
 
+        # init tkinter stuff and the canvas to draw
         self.root = tkinter.Tk()
-
-    # draw the graph
-    def draw(self, with_loop = False):
-        self.root.title("TS Result")
+        self.root.resizable(False, False)
+        self.root.title("CS Result")
         self.canvas = tkinter.Canvas(self.root, bg="white", height=self.height,
                                      width=self.width)
 
-        if self.chromosome:
-            for i in range(len(self.chromosome.nodes)-1):
-                from_node = self.chromosome.nodes[i]
-                to_node = self.chromosome.nodes[i+1]
-                line = self.canvas.create_line(from_node.x,from_node.y,to_node.x,to_node.y, fill="#777")
-                self.lines.append(line)
+    def click_on_gui_element(self, event):
+        element_id = event.widget.find_withtag("current")
+        if len(element_id) > 0:
+            element_id = element_id[0]
+            for y, row in enumerate(self.gui_cells):
+                for x, gui_id in enumerate(row):
+                    if gui_id == element_id:
+                        if self.grid.grid[y][x].alive:
+                            self.grid.kill(y, x)
+                            self.canvas.itemconfig(gui_id, fill='white')
+                            print("kill {}".format(gui_id))
+                        else:
+                            self.grid.revive(y, x)
+                            self.canvas.itemconfig(gui_id, fill='black')
+                            print("revive {}".format(gui_id))
+                        return
 
-        for node in self.nodes:
-            self.create_circle(self.canvas, node.x, node.y, node.size/2.0, node.color)
-            self.canvas.create_text((node.x, node.y), text=node.name)
+    # draw the graph
+    def draw(self):
 
-        def callback(event):
-            self.clickCallback()
+        for y, row in enumerate(self.grid.grid):
+            self.gui_cells.append([])
+            for x, cell in enumerate(row):
+                tag = "{},{}".format(y, x)
+                rect = self.canvas.create_rectangle(x * self.block_width, y * self.block_height,
+                                                    x * self.block_width + self.block_width,
+                                                    y * self.block_height + self.block_height,
+                                                    fill="white", outline="black", tag=tag)
+                self.gui_cells[-1].append(rect)
 
-        # add to the window and show it
+                self.canvas.tag_bind(tag, "<Button-1>", lambda event: self.click_on_gui_element(event))
+
         self.canvas.pack()
-        self.canvas.bind("<Button-1>", callback)
-        self.root.bind('<Return>', callback)
+        self.root.update()
 
-        self.root.mainloop()
+    def update(self):
+        for y, row in enumerate(self.grid.grid):
+            for x, cell in enumerate(row):
+                color = "white"
+                if cell.alive:
+                    color = "black"
+                self.canvas.itemconfig(self.gui_cells[y][x], fill=color)
+        self.root.update()
 
     def quit(self):
         self.root.destroy()
-
-    # create circle
-    def create_circle(self, canvas, x, y, r, color):
-        canvas.create_oval(x - r, y - r, x + r, y + r, fill=color)
