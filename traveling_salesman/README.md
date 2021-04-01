@@ -1,64 +1,33 @@
-# A-Star Algorithm
+# Traveling salesman problem (with genetic algorithm)
 
-This is a python script to try the a-star algorithm.
+This is a python script to try to solve the traveling salesman problem with a genetic algorithm.
 
 ## Usage
+
+You need to click on the gui to come to the next step.\
+Each click is one new generation.
+
 ```shell
-python3 a_star.py {width} {length} {x,y}(start) 
-{x,y}(end) {normal_cost} {diagonal_cost} 
-{x,y}(blocked node) {x,y}(blocked node) ...
+python3 traveling_salesman.py
+
+--help -h: show usage
+--initial-gens -i: amount of initial gens
+--fitness-function -f: 1 - manhattan distance, 2 - pythagorean distance
+--selection-amount -s: amount of the selection
+--crossover-amount -c: amount of crossovers
+--mutation-amount -m: amount of mutations
+--mutation-rate -mr: mutation rate
+--random-amount -r: amount of randoms in each generation
+--max-generations -mg: after that number the program ends
+--fitness-goal -fg: after that number the program ends
+--nodes -n: the nodes {y,x,name,color} ...
 ```
 
 ### Example
-In this example you see a 5x4 grid.\
-The starting point is on the 
-position x = 0 and y = 3.\
-The end point is on the position x = 4 and y = 0.\
-The normal costs are 10 and the diagonal costs are 14.\
-We have 4 wall elements on 1|1, 1|2, 3|1 and 4|2.
-
-It looks like something like this.\
-y\
-3 s □ □ □ □\
-2 □ ■ □ □ ■\
-1 □ ■ □ ■ □\
-0 □ □ □ □ e\
-n 0 1 2 3 4 x
 
 ```shell
-python3 a_star.py 5 4 0,3 4,0 10 14 1,1 1,2 3,1 4,2
+python3 traveling_salesman.py -i 10 -f 1 -s 3 -c 4 -m 3 -mr 0.2 -r 2 -mg 50 -fg 500 -n 100,100,A,#000 200,200,B,#222 300,300,C,#444 100,500,D,#666 600,300,E,#888 900,400,F,#aaa 100,700,G,#ccc
 ```
 
 Output\
 ![example image](example.png)
-
-```shell
-Paths found: 3
-
-0 - PATH
---------------------------------
-x,y: 0,3 - s:52, g:0, h:52
-x,y: 1,3 - s:52, g:10, h:42
-x,y: 2,2 - s:52, g:24, h:28
-x,y: 2,1 - s:58, g:34, h:24
-x,y: 3,0 - s:58, g:48, h:10
-x,y: 4,0 - s:58, g:58, h:0
-
-1 - PATH
---------------------------------
-x,y: 0,3 - s:52, g:0, h:52
-x,y: 1,3 - s:52, g:10, h:42
-x,y: 2,2 - s:52, g:24, h:28
-x,y: 3,2 - s:58, g:34, h:24
-x,y: 4,1 - s:58, g:48, h:10
-x,y: 4,0 - s:58, g:58, h:0
-
-2 - PATH
---------------------------------
-x,y: 0,3 - s:52, g:0, h:52
-x,y: 1,3 - s:52, g:10, h:42
-x,y: 2,3 - s:58, g:20, h:38
-x,y: 3,2 - s:58, g:34, h:24
-x,y: 4,1 - s:58, g:48, h:10
-x,y: 4,0 - s:58, g:58, h:0
-```
