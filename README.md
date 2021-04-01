@@ -5,12 +5,15 @@ The detail README files are in the specific folders. You can use the links below
 
 ## A-Star Algorithm
 
-[See here](a_star)
+[See here](a_star)\
+<img src="a_star/example.png" alt="example" height="100"/>
 
 ## Traveling salesman problem (with genetic algorithm)
 
-[See here](traveling_salesman)
+[See here](traveling_salesman)\
+<img src="traveling_salesman/example.png" alt="example" height="100"/>
 
 ## Cellular systems
 
-[See here](cellular_systems)
+[See here](cellular_systems)\
+<img src="cellular_systems/example.png" alt="example" height="100"/>
