@@ -2,14 +2,14 @@ from .rm_option import RMOption
 import sys
 
 '''
-RMOptions class
+RMOptionHandler class
 
 Main class for the rm_options package.
 Here you can create options, and it takes the handling with it.
 '''
 
 
-class RMOptions(object):
+class RMOptionHandler(object):
     def __init__(self, usage_title="Usage", usage_description="python {}".format(sys.argv[0]),
                  help_option_short_name="h", help_option_long_name="help", help_option_description="show usage",
                  ask_for_missing_values=True, ask_for_required_options=True):

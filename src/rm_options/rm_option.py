@@ -2,7 +2,7 @@
 RMOption class
 
 represents a single option.
-It's better if you use the RMOptions class, which automatically handles this options.
+It's better if you use the RMOptionHandler class, which automatically handles this options.
 """
 
 

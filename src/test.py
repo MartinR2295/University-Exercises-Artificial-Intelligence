@@ -1,7 +1,7 @@
-from rm_options import RMOptions
+from rm_options import RMOptionHandler
 from rm_options import IntMapper, FloatMapper
 
-rm_options = RMOptions()
+rm_options = RMOptionHandler()
 option_all = rm_options.create_option("all", "any text")
 option_more = rm_options.create_option("more", "more text")
 option_delete = rm_options.create_option("delete", "delete something", needs_value=True)
@@ -19,5 +19,3 @@ if not rm_options.check():
 if option_values.has_value():
     for v in option_values.value:
         print(v)
-
-# TODO: add parser class to creationmodel, and provide baseparser, intparser, and float parser
