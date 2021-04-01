@@ -4,9 +4,16 @@ This is a python script to try the a-star algorithm.
 
 ## Usage
 ```shell
-python3 a_star.py {width} {length} {x,y}(start) 
-{x,y}(end) {normal_cost} {diagonal_cost} 
-{x,y}(blocked node) {x,y}(blocked node) ...
+python3 a_star.py
+
+--help -h: show usage
+--width -w: width of the grid in blocks
+--height: height of the grid in blocks
+--start -s: coordinates of the startnode {x,y}
+--end -e: coordinated of the enndnode {x,y}
+--normal-costs -n: normal costs
+--diagonal-costs -d: diagonal costs
+--blocked-nodes -b: list of blocked nodes (walls) {x,y} {x,y} ...
 ```
 
 ### Example
@@ -26,7 +33,7 @@ y\
 n 0 1 2 3 4 x
 
 ```shell
-python3 a_star.py 5 4 0,3 4,0 10 14 1,1 1,2 3,1 4,2
+python3 a_star.py --height 4 -w 5 -s 0,3 -e 4,0 -n 10 -d 14 -b 1,1 1,2 3,1 4,2
 ```
 
 Output\
