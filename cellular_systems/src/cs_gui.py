@@ -1,6 +1,6 @@
 import tkinter
-from .node import Node
-from .chromosome import Chromosome
+from .grid import Grid
+from .cell import Cell
 '''
 GridGUI class
 
@@ -10,36 +10,23 @@ class to draw the result of a grid
 
 class TSGUI(object):
 
-    def __init__(self, nodes:[Node]):
-        self.width = 0
-        self.height = 0
-        self.nodes = nodes
-        self.chromosome: Chromosome = None
-        self.lines = []
-        self.clickCallback = lambda: None
+    def __init__(self, grid: Grid, block_width=50, block_height=50):
+        self.grid = grid
+        self.block_height = block_height
+        self.block_width = block_width
+        self.gui_cells = []
 
-        #calculate needed with and height
-        for node in nodes:
-            if self.width < node.x+node.size:
-                self.width = node.x+node.size
-
-            if self.height < node.y+node.size:
-                self.height = node.y+node.size
+        # calculate the size
+        self.height = len(self.grid.grid) * self.block_height - 2
+        self.width = len(self.grid.grid[0]) * self.block_width - 2
 
         self.root = tkinter.Tk()
-
-    def update_lines(self):
-        for i in range(len(self.chromosome.nodes)-1):
-            from_node = self.chromosome.nodes[i]
-            to_node = self.chromosome.nodes[i+1]
-            line = self.lines[i]
-            self.canvas.coords(line, from_node.x,from_node.y,to_node.x,to_node.y)
 
     # draw the graph
     def draw(self, with_loop = False):
         self.root.title("TS Result")
         self.canvas = tkinter.Canvas(self.root, bg="white", height=self.height,
-                                width=self.width)
+                                     width=self.width)
 
         if self.chromosome:
             for i in range(len(self.chromosome.nodes)-1):
