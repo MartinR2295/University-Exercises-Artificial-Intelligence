@@ -2,14 +2,20 @@
 
 This is a python script to try cellular systems.
 
-## Usage
+## Install
 ```shell
-python3 cellular_systems.py {height} {width} {block_size}
+pip3 install -r requirements.txt
 ```
 
-height = height in blocks\
-width = width in blocks\
-block_size = size of one block in pixel
+## Usage
+```shell
+python3 cellular_systems.py
+
+--help -h: show usage
+--height: height of the grid in blocks
+--width -w: width of the grid in blocks
+--block-size -b: block-size in pixel
+```
 
 After the command you can click on any free block, to make it alive.
 If you press enter in the console, it executes one round.
@@ -19,7 +25,7 @@ You can set the alive states of blocks in each round.
 
 
 ```shell
-python3 cellular_systems.py 15 15 20
+python3 cellular_systems.py --height 15 -w 15 -b 20
 ```
 
 Output\

@@ -2,6 +2,11 @@
 
 This is a python script to try to solve the traveling salesman problem with a genetic algorithm.
 
+## Install
+```shell
+pip3 install -r requirements.txt
+```
+
 ## Usage
 
 You need to click on the gui to come to the next step.\

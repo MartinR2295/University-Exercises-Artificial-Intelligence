@@ -2,6 +2,11 @@
 
 This is a python script to try the a-star algorithm.
 
+## Install
+```shell
+pip3 install -r requirements.txt
+```
+
 ## Usage
 ```shell
 python3 a_star.py
