@@ -3,7 +3,6 @@ from src.grid import Grid
 from src.cs_gui import CSGUI
 from src.rule import Rule
 
-
 def main():
     if len(sys.argv) < 4:
         print("usage: python3 cellular_systems.py {height} {width} {block_size}")
