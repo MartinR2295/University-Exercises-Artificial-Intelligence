@@ -27,7 +27,7 @@ def main():
 
     # set the rules
     rules = [Rule(True, False, 0, max_alive_neighbours=1),
-             Rule(True, False, 3),
+             Rule(True, False, 4),
              Rule(False, True, 3, max_alive_neighbours=3)]
 
     # make the rounds

@@ -22,7 +22,6 @@ class CSGUI(object):
 
         # init tkinter stuff and the canvas to draw
         self.root = tkinter.Tk()
-        self.root.resizable(False, False)
         self.root.title("CS Result")
         self.canvas = tkinter.Canvas(self.root, bg="white", height=self.height,
                                      width=self.width)
