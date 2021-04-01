@@ -1,5 +1,5 @@
-from rm_options import RMOptionHandler
-from rm_options import IntMapper, FloatMapper
+from rm_options.rmoptions import RMOptionHandler
+from rm_options.rmoptions.mapper import IntMapper, FloatMapper
 
 rm_options = RMOptionHandler()
 option_all = rm_options.create_option("all", "any text")

@@ -12,16 +12,17 @@ Here you can create options, and it takes the handling with it.
 class RMOptionHandler(object):
     def __init__(self, usage_title="Usage", usage_description="python {}".format(sys.argv[0]),
                  help_option_short_name="h", help_option_long_name="help", help_option_description="show usage",
-                 ask_for_missing_values=True, ask_for_required_options=True):
+                 ask_for_missing_values=True, ask_for_required_options=True, automatic_help_command=True):
         self.usage_title = usage_title
         self.usage_description = usage_description
         self.options = []
         self.ask_for_missing_values = ask_for_missing_values
         self.ask_for_required_options = ask_for_required_options
         self.error = None
+        self.automatic_help_command = automatic_help_command
 
         # create help option
-        self.create_option(help_option_long_name, help_option_description, False, short_name=help_option_short_name)
+        self.help_option = self.create_option(help_option_long_name, help_option_description, False, short_name=help_option_short_name)
 
     # create an option, and add it to options array
     def create_option(self, long_name: str, description: str, needs_value: bool = False,
@@ -34,7 +35,8 @@ class RMOptionHandler(object):
         return option
 
     def print_error(self):
-        print(self.error)
+        if self.error:
+            print(self.error)
 
     # prints the usage
     # TODO: seperate required arguments from the optional arguments
@@ -76,6 +78,11 @@ class RMOptionHandler(object):
                 if current_option.value:
                     return False
                 current_option.value = sys.argv[i]
+
+        # check for help command
+        if self.help_option.in_use and self.automatic_help_command:
+            self.print_usage()
+            exit()
 
         # checking process
         for option in self.options:

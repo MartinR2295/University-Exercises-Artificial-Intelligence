@@ -18,5 +18,5 @@ class BaseMapper(object):
 
     # this is the mapping method.
     # you should return the mapped object, or a non object when something wents wrong.
-    def map(self, option):
+    def map(self, value):
         raise NotImplementedError
