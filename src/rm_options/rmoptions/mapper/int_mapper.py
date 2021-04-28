@@ -15,6 +15,9 @@ class IntMapper(BaseMapper):
     def get_target_type_name(self):
         return "int"
 
+    def get_expected_input_format(self):
+        return "int"
+
     def map(self, value):
         if value.isnumeric():
             return int(value)
