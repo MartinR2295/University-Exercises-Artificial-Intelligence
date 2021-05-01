@@ -7,13 +7,37 @@ export class Grid {
   constructor(height: number, width: number) {
     this.raw_grid = []
     for(let y = 0; y < height; y++) {
-      let row:Cell[] = []
-      for(let x = 0; x < width; x++) {
-        let cell = new Cell(y, x)
-        row.push(cell)
-      }
-      this.raw_grid.push(row)
+      this.addRow(width)
     }
+  }
+
+  addRow(width: number) {
+    let y = this.raw_grid.length
+    let row:Cell[] = []
+    for(let x = 0; x < width; x++) {
+      let cell = new Cell(y, x)
+      row.push(cell)
+    }
+    this.raw_grid.push(row)
+  }
+
+  changeWidth(newWidth: number) {
+    let difference = this.raw_grid[0].length-newWidth
+    console.log(this.raw_grid[0].length, newWidth, difference)
+    this.raw_grid.forEach(function(row) {
+      if(difference > 0) {
+        row.splice(-difference)
+      } else {
+        for(let i = 0; i < Math.abs(difference); i++) {
+          let lastCell = row[row.length-1]
+          row.push(new Cell(lastCell.y, lastCell.x+1))
+        }
+      }
+    });
+  }
+
+  removeLastRow() {
+    this.raw_grid.pop()
   }
 
   //revive a cell in the grid

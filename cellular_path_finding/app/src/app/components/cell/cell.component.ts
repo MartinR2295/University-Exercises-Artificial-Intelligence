@@ -20,9 +20,6 @@ export class CellComponent implements OnInit {
   is_bottom_edge_cell: boolean = false
 
   @Input()
-  is_left_edge_cell: boolean = false
-
-  @Input()
   cellWidth: number = 50
 
   @Input()

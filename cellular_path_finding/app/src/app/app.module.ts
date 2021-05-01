@@ -8,6 +8,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { CellComponent } from './components/cell/cell.component';
 import { GridComponent } from './components/grid/grid.component';
 import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MatCardModule} from "@angular/material/card";
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
