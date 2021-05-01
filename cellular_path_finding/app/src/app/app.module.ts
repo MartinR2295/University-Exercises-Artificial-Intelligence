@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { CellComponent } from './components/cell/cell.component';
 import { GridComponent } from './components/grid/grid.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { GridComponent } from './components/grid/grid.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

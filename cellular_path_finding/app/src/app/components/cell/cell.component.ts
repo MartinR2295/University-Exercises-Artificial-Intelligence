@@ -23,6 +23,13 @@ export class CellComponent implements OnInit {
   is_left_edge_cell: boolean = false
 
   @Input()
+  cellWidth: number = 50
+
+  @Input()
+  cellHeight: number = 50
+
+
+  @Input()
   cell_status_css_class_mapper: Map<CellStatus, string> = new Map<CellStatus, string>([
     [CellStatus.Dead, "white"],
     [CellStatus.Alive, "black"],

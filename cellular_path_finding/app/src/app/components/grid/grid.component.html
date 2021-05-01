@@ -1,13 +1,18 @@
-<div *ngFor="let row of grid.raw_grid; last as isBottomRow">
-  <app-cell *ngFor="let cell of row; last as isRightCell; first as isLeftCell"
-            [cell]="cell"
-            [is_bottom_edge_cell]="isBottomRow"
-            [is_right_edge_cell]="isRightCell"
-            [is_left_edge_cell]="isLeftCell"
-            (click)="click_on_cell(cell)">
-  </app-cell>
+<div style="overflow: scroll; height: 500px">
+  <div style="width: 2600px; height: 100%">
+    <div *ngFor="let row of grid.raw_grid; last as isBottomRow">
+      <app-cell *ngFor="let cell of row; last as isRightCell; first as isLeftCell"
+                [cell]="cell"
+                [is_bottom_edge_cell]="isBottomRow"
+                [is_right_edge_cell]="isRightCell"
+                [is_left_edge_cell]="isLeftCell"
+                [cellHeight]="50"
+                [cellWidth]="50"
+                (click)="click_on_cell(cell)">
+      </app-cell>
+    </div>
+  </div>
 </div>
-
 <!--
 //remove inline border-right
         if(x != width-1) cell_style["border-right"] = "none"
