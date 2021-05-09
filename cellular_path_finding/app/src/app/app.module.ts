@@ -9,12 +9,18 @@ import { CellComponent } from './components/cell/cell.component';
 import { GridComponent } from './components/grid/grid.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from '@angular/material/button';
+import { SliderWithInputComponent } from './components/ui/slider/slider-with-input/slider-with-input.component';
+import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
+import {MatInput, MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
     AppComponent,
     CellComponent,
-    GridComponent
+    GridComponent,
+    SliderWithInputComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,11 @@ import {MatButtonModule} from '@angular/material/button';
     BrowserAnimationsModule,
     MatSliderModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

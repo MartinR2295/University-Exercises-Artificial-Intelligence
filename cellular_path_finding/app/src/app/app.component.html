@@ -3,10 +3,11 @@
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title>Game Of Life</mat-card-title>
-    <mat-card-subtitle>Click on empty cells to make it alive</mat-card-subtitle>
-    <mat-slider [value]="cellSize" aria-label="unit(s)" (input)="sliderChange($event)" min="5" max="100"></mat-slider>
-    <mat-slider [value]="grid.raw_grid.length" aria-label="unit(s)" (input)="gridHeightChange($event)" min="1" max="100"></mat-slider>
-    <mat-slider [value]="grid.raw_grid[0].length" aria-label="unit(s)" (input)="gridWidthChange($event)" min="1" max="100"></mat-slider>
+    <mat-card-subtitle>Click on empty cells to make it alive
+    </mat-card-subtitle>
+    <app-slider-with-input [name]="'Cell-Size'" [value]="cellSize" (valueChanged)="sliderChange($event)" [min]="'5'" [max]="'100'"></app-slider-with-input>
+    <app-slider-with-input [name]="'Grid-Height'" [value]="grid.raw_grid.length" (valueChanged)="gridHeightChange($event)" [min]="'1'" [max]="'100'"></app-slider-with-input>
+    <app-slider-with-input [name]="'Grid-Width'" [value]="grid.raw_grid[0].length" (valueChanged)="gridWidthChange($event)" [min]="'1'" [max]="'100'"></app-slider-with-input>
   </mat-card-header>
   <mat-card-content>
     <app-grid [grid]="grid"
@@ -14,7 +15,7 @@
               [cellHeight]="cellSize"></app-grid>
   </mat-card-content>
   <mat-card-actions>
-    <mat-slider [value]="autoStepTime" aria-label="unit(s)" (change)="autoStepTimeChange($event)" [step]="0.01" min="0.01" max="2"></mat-slider>
+    <app-slider-with-input  [name]="'Automated Interval'" [value]="autoStepTime" (valueChanged)="autoStepTimeChange($event)" [step]="0.01" [min]="0.01" [max]="2"></app-slider-with-input>
     <button mat-raised-button color="primary" (click)="changeAutoStepState()">{{ autoStepTimeInterval == null ? "Start" : "Stop" }}</button>
     <button mat-raised-button color="primary" (click)="next()">Next</button>
   </mat-card-actions>

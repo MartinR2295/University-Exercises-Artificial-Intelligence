@@ -27,12 +27,6 @@ export class GridComponent implements OnInit {
   }
 
   click_on_cell(cell: Cell) {
-    console.log("click on cell: "+cell)
-    console.log("neighbours:")
-    /*this.grid.getNeighbours(cell).forEach(function (neighbour) {
-      neighbour.status = CellStatus.Wall
-      console.log("n: "+neighbour)
-    })*/
     cell.status = cell.status == CellStatus.Alive ? CellStatus.Dead : CellStatus.Alive;
   }
 }

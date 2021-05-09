@@ -23,7 +23,6 @@ export class Grid {
 
   changeWidth(newWidth: number) {
     let difference = this.raw_grid[0].length-newWidth
-    console.log(this.raw_grid[0].length, newWidth, difference)
     this.raw_grid.forEach(function(row) {
       if(difference > 0) {
         row.splice(-difference)

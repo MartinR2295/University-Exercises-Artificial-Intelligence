@@ -40,7 +40,11 @@ export class AppComponent {
   autoStepTimeChange(event) {
     console.log(event.value)
     this.autoStepTime = event.value
-    this.refreshAutoStep()
+
+    //if automation is already started, refresh it
+    if(this.autoStepTimeInterval != null) {
+      this.refreshAutoStep()
+    }
   }
 
   gridHeightChange(event) {
