@@ -6,25 +6,32 @@
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+    <label>Grid Size Control</label>
     <div class="size-control-panel">
       <app-slider-with-input [name]="'Cell-Size'" [value]="cellSize" (valueChanged)="sliderChange($event)" [min]="'5'" [max]="'100'"></app-slider-with-input>
       <app-slider-with-input [name]="'Grid-Height'" [value]="grid.raw_grid.length" (valueChanged)="gridHeightChange($event)" [min]="'1'" [max]="'100'"></app-slider-with-input>
       <app-slider-with-input [name]="'Grid-Width'" [value]="grid.raw_grid[0].length" (valueChanged)="gridWidthChange($event)" [min]="'1'" [max]="'100'"></app-slider-with-input>
     </div>
-    <mat-radio-group
-      aria-label="Create Style"
-      [(ngModel)]="cellCreationType">
-      <mat-radio-button *ngFor="let cct of cellCreationTypes" [value]="cct">
-        {{cct.toString()}}
-      </mat-radio-button>
-    </mat-radio-group>
+    <label>Which element you want to draw?</label>
+    <div class="size-control-panel">
+      <mat-radio-group
+        aria-label="Create Style"
+        [(ngModel)]="cellCreationType">
+        <mat-radio-button *ngFor="let cct of cellCreationTypes" [value]="cct">
+          {{cct.toString()}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
     <app-grid [grid]="grid"
               [cellWidth]="cellSize"
               [cellHeight]="cellSize"
               [cellCreationType]="cellCreationType"></app-grid>
   </mat-card-content>
   <mat-card-actions>
-    <app-slider-with-input  [name]="'Automated Interval'" [value]="autoStepTime" (valueChanged)="autoStepTimeChange($event)" [step]="0.01" [min]="0.01" [max]="2"></app-slider-with-input>
+    <label>Generation Control</label>
+    <div class="size-control-panel">
+      <app-slider-with-input  [name]="'Automated Interval'" [value]="autoStepTime" (valueChanged)="autoStepTimeChange($event)" [step]="0.01" [min]="0.01" [max]="2"></app-slider-with-input>
+    </div>
     <button mat-raised-button color="primary" (click)="changeAutoStepState()">{{ autoStepTimeInterval == null ? "Start" : "Stop" }}</button>
     <button mat-raised-button color="primary" (click)="next()">Next</button>
   </mat-card-actions>

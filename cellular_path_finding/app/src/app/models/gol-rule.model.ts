@@ -2,6 +2,15 @@ import {BaseRule} from "./base-rule.model";
 import {Cell, CellStatus} from "./cell.model";
 
 export class GolRule extends BaseRule {
+
+  static gameOfLifeRules() {
+    return [
+      new GolRule(GolRuleState.Alive, GolRuleState.Dead, 0, 1),
+      new GolRule(GolRuleState.Alive, GolRuleState.Dead, 4, null),
+      new GolRule(GolRuleState.Dead, GolRuleState.Alive, 3, 3)
+    ]
+  }
+
   constructor(public startState: GolRuleState,
               public endState: GolRuleState,
               public minAliveNeighbours: number,

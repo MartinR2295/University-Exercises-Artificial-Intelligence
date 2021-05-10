@@ -24,9 +24,9 @@ export class Cell {
 }
 
 export enum CellStatus {
-  Dead,
-  Alive,
-  Wall,
-  Start,
-  End
+  Dead="Dead",
+  Alive="Alive",
+  Wall="Wall",
+  Start="Start",
+  End="End"
 }

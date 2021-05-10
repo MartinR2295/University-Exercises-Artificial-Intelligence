@@ -32,10 +32,6 @@ export class CellularSystemComponent implements OnInit {
 
   constructor() {
     this.grid = new Grid(10,10)
-    //set the rules
-    this.rules.push(new GolRule(GolRuleState.Alive, GolRuleState.Dead, 0, 1))
-    this.rules.push(new GolRule(GolRuleState.Alive, GolRuleState.Dead, 4, null))
-    this.rules.push(new GolRule(GolRuleState.Dead, GolRuleState.Alive, 3, 3))
   }
 
   ngOnInit(): void {
@@ -51,7 +47,6 @@ export class CellularSystemComponent implements OnInit {
   }
 
   autoStepTimeChange(event) {
-    console.log(event.value)
     this.autoStepTime = event.value
 
     //if automation is already started, refresh it

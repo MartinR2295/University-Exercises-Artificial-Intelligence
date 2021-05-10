@@ -15,7 +15,9 @@ export class AppComponent {
 
   title = 'cellular-path-finding';
 
-  constructor() {
+  gameOfLifeRules = GolRule.gameOfLifeRules()
+  pathFindingRules = GolRule.gameOfLifeRules()
 
+  constructor() {
   }
 }
