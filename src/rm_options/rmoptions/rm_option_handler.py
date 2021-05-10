@@ -29,11 +29,13 @@ class RMOptionHandler(object):
     # create an option, and add it to options array
     def create_option(self, long_name: str, description: str, needs_value: bool = False,
                       required: bool = False, default_value=None, short_name: str = None,
-                      multiple_values: bool = False, mapper=None, quit_after_this_option=False):
+                      multiple_values: bool = False, mapper=None, quit_after_this_option=False,
+                      multiple_word_string=False):
         option = RMOption(long_name, description, needs_value=needs_value,
                           required=required, default_value=default_value, short_name=short_name,
                           multiple_values=multiple_values, mapper=mapper,
-                          main_option=quit_after_this_option)
+                          main_option=quit_after_this_option,
+                          multiple_word_string=multiple_word_string)
         self.options.append(option)
         return option
 
@@ -102,11 +104,16 @@ class RMOptionHandler(object):
             if current_option.multiple_values:
                 current_option.value.append(sys.argv[i])
             else:
+
                 if current_option.value:
-                    # the option doesn't support more than one values
-                    self.error = "The option '{}' doesn't accept more than one values!".format(current_option.long_name)
-                    return False
-                current_option.value = sys.argv[i]
+                    if current_option.multiple_word_string:
+                        current_option.value += " {}".format(sys.argv[i])
+                    else:
+                        # the option doesn't support more than one values
+                        self.error = "The option '{}' doesn't accept more than one values!".format(current_option.long_name)
+                        return False
+                else:
+                    current_option.value = sys.argv[i]
 
         # check for help command
         if self.help_option.in_use and self.automatic_help_command:

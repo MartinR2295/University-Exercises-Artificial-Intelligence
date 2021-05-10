@@ -11,7 +11,7 @@ class RMOption(object):
     def __init__(self, long_name: str, description: str, required: bool = False,
                  default_value=None, short_name: str = None,
                  needs_value=False, multiple_values: bool = False,
-                 mapper=None, main_option=False):
+                 mapper=None, main_option=False, multiple_word_string: bool = False):
         self.short_name = short_name
         self.long_name = long_name
         self.description = description
@@ -22,6 +22,7 @@ class RMOption(object):
         self.value = (lambda: [] if multiple_values else None)()
         self.in_use = False
         self.mapper = mapper
+        self.multiple_word_string = multiple_word_string
         '''
         If main_option is True, the handler will stop the checking process, 
         and put all follow strings as a value to it.
@@ -51,27 +52,31 @@ class RMOption(object):
     # check if the input of the option was complete
     def complete(self):
         # check if the option is in use, and check also the required state
+        # in use means, that the check function detected the option in the inputted arguments
+        # if it's not in the arguments, but it's required and have no default values, it's a invalid
+        # input
         if not self.in_use:
             if self.required:
                 # set the default_value if it's required, but not given by user.
                 # because we have a default_value we don't need an input. #github issue #2
                 if self.default_value is not None:
-                    self.value = self.default_value
-                    return True
+                    if not self.has_value():
+                        self.value = self.default_value
+                    return self.has_value()
                 return False
             return True
+
+        # if we don't have a value, but we have a default value, we set it to the value
+        # and return true
+        if self.default_value is not None and not self.has_value():
+            self.value = self.default_value
 
         # if we don't need a value
         if not self.needs_value:
             return True
 
+        # check if the value isn't empty
         if self.value is not None and self.value != []:
-            return True
-
-        # if we don't have a value, but we have a default value, we set it to the value
-        # and return true
-        if self.default_value is not None:
-            self.value = self.default_value
             return True
 
         return False

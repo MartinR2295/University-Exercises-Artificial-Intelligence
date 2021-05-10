@@ -21,12 +21,15 @@ export class GridComponent implements OnInit {
   @Input()
   cellHeight: number = 50
 
+  @Input()
+  cellCreationType: CellStatus = CellStatus.Alive
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   click_on_cell(cell: Cell) {
-    cell.status = cell.status == CellStatus.Alive ? CellStatus.Dead : CellStatus.Alive;
+    cell.status = cell.status == CellStatus.Dead ? this.cellCreationType : CellStatus.Dead;
   }
 }

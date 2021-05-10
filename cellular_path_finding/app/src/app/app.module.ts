@@ -14,13 +14,16 @@ import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form
 import {MatInput, MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatRadioModule} from "@angular/material/radio";
+import { CellularSystemComponent } from './components/cellular-system/cellular-system.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CellComponent,
     GridComponent,
-    SliderWithInputComponent
+    SliderWithInputComponent,
+    CellularSystemComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]
