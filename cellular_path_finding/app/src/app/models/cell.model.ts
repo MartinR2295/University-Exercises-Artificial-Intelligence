@@ -1,10 +1,13 @@
+import {Formation} from "./formation.model";
+
 export class Cell {
 
   nextStatus: CellStatus = null
   nextIndex: number = null
 
   constructor(public y: number, public x: number, public status: CellStatus = CellStatus.Dead,
-              public index: number = -1) {
+              public index: number = -1,
+              formation: Formation = null) {
 
   }
 
