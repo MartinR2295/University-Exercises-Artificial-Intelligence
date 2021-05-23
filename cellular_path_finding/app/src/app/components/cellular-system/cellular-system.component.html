@@ -8,8 +8,8 @@
   <mat-card-content>
     <label>Templates</label>
     <div class="size-control-panel">
-      <mat-select (valueChange)="templateSelected($event)">
-        <mat-option *ngFor="let template of templates" [value]="template">
+      <mat-select (valueChange)="templateSelected($event)" [value]="templates[0]">
+        <mat-option *ngFor="let template of templates; let first = first;" [value]="template">
           {{template.name}}
         </mat-option>
       </mat-select>

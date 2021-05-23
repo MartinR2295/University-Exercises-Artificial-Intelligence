@@ -33,6 +33,7 @@ export class CellularSystemComponent implements OnInit {
 
   constructor() {
     this.grid = new Grid(10,10)
+    this.templateSelected(this.templates[0])
   }
 
   ngOnInit(): void {
