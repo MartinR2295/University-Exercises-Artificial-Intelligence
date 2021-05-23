@@ -78,7 +78,7 @@ export class CellularSystemComponent implements OnInit {
     for(let coord of template.walls) {
       this.grid.raw_grid[coord.y][coord.x].status = CellStatus.Wall
     }
-    this.grid.formation.robots = []
+    this.grid.removeRobots()
     for(let coord of template.robots) {
       let cell = this.grid.raw_grid[coord.y][coord.x]
       cell.status = CellStatus.Alive

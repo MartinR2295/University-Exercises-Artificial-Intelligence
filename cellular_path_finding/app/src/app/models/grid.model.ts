@@ -45,6 +45,21 @@ export class Grid {
     });
   }
 
+  removeRobots() {
+    this.formation.robots = []
+    this.formation.originCell = null
+    this.raw_grid.forEach(function(row) {
+      row.forEach(function (cell) {
+        if(cell.status == CellStatus.Alive) {
+          cell.status = CellStatus.Dead
+          cell.robot = null
+          cell.nextRobot = null
+          cell.nextStatus = null
+        }
+      });
+    });
+  }
+
   addRow(width: number) {
     let y = this.raw_grid.length
     let row:Cell[] = []

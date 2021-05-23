@@ -52,10 +52,10 @@ export class ObstacleAvoidanceRule extends BaseRule {
 
               // first check y
               if(robot.currentYInFormation() != 0) {
-                if(robot.currentYInFormation() > 0 && orderedNeighbours[2].status == CellStatus.Dead) {
+                if(robot.currentYInFormation() > 0 && orderedNeighbours[2].status == CellStatus.Dead && orderedNeighbours[2].nextStatus != CellStatus.Alive) {
                   cell.moveToNeighbour(orderedNeighbours[2])
                   return
-                } else if(robot.currentYInFormation() < 0 && orderedNeighbours[1].status == CellStatus.Dead) {
+                } else if(robot.currentYInFormation() < 0 && orderedNeighbours[1].status == CellStatus.Dead && orderedNeighbours[1].nextStatus != CellStatus.Alive) {
                   cell.moveToNeighbour(orderedNeighbours[1])
                   return
                 }
@@ -89,10 +89,10 @@ export class ObstacleAvoidanceRule extends BaseRule {
               // do stuff if we are the slave
               // first check y
               if(robot.currentYInFormationOffset() != 0) {
-                if(robot.currentYInFormationOffset() > 0 && orderedNeighbours[2].status == CellStatus.Dead) {
+                if(robot.currentYInFormationOffset() > 0 && orderedNeighbours[2].status == CellStatus.Dead && orderedNeighbours[2].nextStatus != CellStatus.Alive) {
                   cell.moveToNeighbour(orderedNeighbours[2])
                   return
-                } else if(robot.currentYInFormationOffset() < 0 && orderedNeighbours[1].status == CellStatus.Dead) {
+                } else if(robot.currentYInFormationOffset() < 0 && orderedNeighbours[1].status == CellStatus.Dead && orderedNeighbours[1].nextStatus != CellStatus.Alive) {
                   cell.moveToNeighbour(orderedNeighbours[1])
                   return
                 }
@@ -107,8 +107,10 @@ export class ObstacleAvoidanceRule extends BaseRule {
             }
           }
           console.log("move forward to neighbour")
-          cell.moveToNeighbour(neighbour)
-
+          if(neighbour.nextStatus != CellStatus.Alive) {
+            cell.moveToNeighbour(neighbour)
+          }
+          cell.nextRobot = cell.robot
           return
         }
 
