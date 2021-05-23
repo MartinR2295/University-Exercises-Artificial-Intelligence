@@ -17,3 +17,8 @@ The detail README files are in the specific folders. You can use the links below
 
 [See here](cellular_systems)\
 <img src="cellular_systems/example.png" alt="example" height="200"/>
+
+## Cellular path finding
+
+[See here](cellular_path_finding)\
+<img src="cellular_path_finding/screenshot.png" alt="example" height="200"/>
