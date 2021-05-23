@@ -2,6 +2,10 @@ import {Robot} from "./robot.model";
 import {Cell} from "./cell.model";
 
 export class Formation {
+
+  // cell of the origin master robot (need to implement a reset function)
+  originCell:Cell = null
+
   public constructor(public keepY: number = null,
                      public keepX: number = null,
                      public robots: Robot[] = []) {
@@ -10,6 +14,7 @@ export class Formation {
   public addRobotToCell(cell: Cell) {
     // add the first robot
     if(this.robots.length == 0) {
+      this.originCell = cell
       let robot = new Robot(0, 0, cell, this)
       this.keepY = cell.y
       this.robots.push(robot)

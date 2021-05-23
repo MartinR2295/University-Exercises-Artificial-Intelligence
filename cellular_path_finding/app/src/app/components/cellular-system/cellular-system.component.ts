@@ -3,7 +3,7 @@ import {Grid} from "../../models/grid.model";
 import {BaseRule} from "../../models/base-rule.model";
 import {interval, Observable, Subscription} from "rxjs";
 import {CellStatus} from "../../models/cell.model";
-import {GolRule, GolRuleState} from "../../models/gol-rule.model";
+import {GridTemplate} from "../../models/grid-template.model";
 
 @Component({
   selector: 'app-cellular-system',
@@ -13,6 +13,7 @@ import {GolRule, GolRuleState} from "../../models/gol-rule.model";
 export class CellularSystemComponent implements OnInit {
 
   grid: Grid;
+  templates: GridTemplate[] = GridTemplate.getAllTemplates()
 
   @Input()
   title: string = "Title"
@@ -40,6 +41,52 @@ export class CellularSystemComponent implements OnInit {
   next() {
     this.grid.executeRules(this.rules)
     this.grid.switchMarkedCells()
+  }
+
+  tmpl() {
+    let arrStr = "["
+    for(let row of this.grid.raw_grid) {
+      for (let cell of row) {
+        if(cell.status == CellStatus.Wall) {
+          arrStr += "{x: "+cell.x+", y: "+cell.y+"},"
+        }
+      }
+    }
+    arrStr += "]"
+    console.log("walls: ", arrStr)
+
+    arrStr = "["
+    for(let row of this.grid.raw_grid) {
+      for (let cell of row) {
+        if(cell.robot != null) {
+          arrStr += "{x: "+cell.x+", y: "+cell.y+"},"
+        }
+      }
+    }
+    arrStr += "]"
+
+    console.log("robots: ", arrStr)
+  }
+
+  templateSelected(template) {
+    console.log("choose template", template)
+    this.cellSize = template.size
+    this.gridHeightChange({value: template.height})
+    this.gridWidthChange({value: template.width})
+    this.grid.removeWalls()
+    for(let coord of template.walls) {
+      this.grid.raw_grid[coord.y][coord.x].status = CellStatus.Wall
+    }
+    this.grid.formation.robots = []
+    for(let coord of template.robots) {
+      let cell = this.grid.raw_grid[coord.y][coord.x]
+      cell.status = CellStatus.Alive
+      this.grid.formation.addRobotToCell(cell)
+    }
+  }
+
+  reset() {
+    this.grid.resetRobotsToOrigin()
   }
 
   sliderChange(event) {

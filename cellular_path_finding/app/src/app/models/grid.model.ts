@@ -14,6 +14,37 @@ export class Grid {
     this.formation = new Formation()
   }
 
+  resetRobotsToOrigin() {
+    for(let robot of this.formation.robots) {
+      robot.direction = 0
+      robot.lastDirection = 0
+      robot.nextDirection = null
+      robot.cell.status = CellStatus.Dead
+      robot.cell.robot = null
+      if(robot.isMasterInFormation()) {
+        this.formation.originCell.nextRobot = robot
+        this.formation.originCell.nextStatus = CellStatus.Alive
+        continue
+      }
+
+      let originCell = this.raw_grid[this.formation.originCell.y+robot.formY][this.formation.originCell.x+robot.formX]
+      originCell.nextRobot = robot
+      originCell.nextStatus = CellStatus.Alive
+    }
+
+    this.switchMarkedCells()
+  }
+
+  removeWalls() {
+    this.raw_grid.forEach(function(row) {
+      row.forEach(function (cell) {
+        if(cell.status == CellStatus.Wall) {
+          cell.status = CellStatus.Dead
+        }
+      });
+    });
+  }
+
   addRow(width: number) {
     let y = this.raw_grid.length
     let row:Cell[] = []

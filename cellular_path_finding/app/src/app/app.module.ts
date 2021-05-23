@@ -16,6 +16,8 @@ import {FormsModule} from "@angular/forms";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatRadioModule} from "@angular/material/radio";
 import { CellularSystemComponent } from './components/cellular-system/cellular-system.component';
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -25,19 +27,21 @@ import { CellularSystemComponent } from './components/cellular-system/cellular-s
     SliderWithInputComponent,
     CellularSystemComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSliderModule,
-    MatCardModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatGridListModule,
-    MatRadioModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSliderModule,
+        MatCardModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatGridListModule,
+        MatRadioModule,
+        MatOptionModule,
+        MatSelectModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -55,7 +55,7 @@ export class ObstacleAvoidanceRule extends BaseRule {
                 if(robot.currentYInFormation() > 0 && orderedNeighbours[2].status == CellStatus.Dead) {
                   cell.moveToNeighbour(orderedNeighbours[2])
                   return
-                } else if(robot.currentYInFormation() < 0 && orderedNeighbours[2].status == CellStatus.Dead) {
+                } else if(robot.currentYInFormation() < 0 && orderedNeighbours[1].status == CellStatus.Dead) {
                   cell.moveToNeighbour(orderedNeighbours[1])
                   return
                 }
@@ -92,7 +92,7 @@ export class ObstacleAvoidanceRule extends BaseRule {
                 if(robot.currentYInFormationOffset() > 0 && orderedNeighbours[2].status == CellStatus.Dead) {
                   cell.moveToNeighbour(orderedNeighbours[2])
                   return
-                } else if(robot.currentYInFormationOffset() < 0 && orderedNeighbours[2].status == CellStatus.Dead) {
+                } else if(robot.currentYInFormationOffset() < 0 && orderedNeighbours[1].status == CellStatus.Dead) {
                   cell.moveToNeighbour(orderedNeighbours[1])
                   return
                 }

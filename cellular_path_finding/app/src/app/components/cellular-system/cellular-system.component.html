@@ -6,6 +6,14 @@
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+    <label>Templates</label>
+    <div class="size-control-panel">
+      <mat-select (valueChange)="templateSelected($event)">
+        <mat-option *ngFor="let template of templates" [value]="template">
+          {{template.name}}
+        </mat-option>
+      </mat-select>
+    </div>
     <label>Grid Size Control</label>
     <div class="size-control-panel">
       <app-slider-with-input [name]="'Cell-Size'" [value]="cellSize" (valueChanged)="sliderChange($event)" [min]="'5'" [max]="'100'"></app-slider-with-input>
@@ -34,6 +42,8 @@
     </div>
     <button mat-raised-button color="primary" (click)="changeAutoStepState()">{{ autoStepTimeInterval == null ? "Start" : "Stop" }}</button>
     <button mat-raised-button color="primary" (click)="next()">Next</button>
+    <button mat-raised-button color="primary" (click)="reset()">Reset</button>
+    <button mat-raised-button color="primary" (click)="tmpl()">tmpl</button>
   </mat-card-actions>
 </mat-card>
 </div>
