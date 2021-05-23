@@ -19,7 +19,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
   applyOn(cell: Cell, neighbours: Cell[]){
     if(cell.status == CellStatus.Alive) {
       // get the robot
-      console.log("robot and cell before", cell, cell.robot)
       let robot = cell.robot
 
       //get ordered neighbours in relation to zero angle of formation
@@ -42,7 +41,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
 
         //move robot if first neighbour is free
         if(i == 0 && neighbour.status == CellStatus.Dead) {
-          console.log("move forward")
           // direction control if we have no obstacle in formation direction
           if(robot.direction == 0 && robot.lastDirection == 0) {
             // do formation control stuff
@@ -66,7 +64,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
                 for(let rbt of otherRobots) {
                   if(rbt.currentXInFormationOffset() > 0) {
                     this.moveToNeighbour(cell, neighbour)
-                    console.log("slave in front", rbt, rbt.currentXInFormationOffset(), rbt.currentXInFormation())
                     return
                   }
                 }
@@ -74,7 +71,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
                 // if one slave is back, do nothing with master and return
                 for(let rbt of otherRobots) {
                   if(rbt.currentXInFormationOffset() < 0) {
-                    console.log("slave back")
                     cell.nextRobot = cell.robot
                     return
                   }
@@ -82,7 +78,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
 
                 // if every slave is in the right x position move in front
                 this.moveToNeighbour(cell, neighbour)
-                console.log("all slaves in position")
                 return
               }
             } else {
@@ -98,7 +93,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
                 }
               } else {
                 //do x stuff
-                console.log("move slave")
                 if(robot.currentXInFormationOffset() > 0) {
                   cell.nextRobot = cell.robot
                   return
@@ -106,7 +100,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
               }
             }
           }
-          console.log("move forward to neighbour")
           if(neighbour.nextStatus != CellStatus.Alive) {
             this.moveToNeighbour(cell, neighbour)
           }
@@ -116,7 +109,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
 
         //turn robot if we need a new direction
         if(neighbour.status == CellStatus.Dead) {
-          console.log("turn ", cell)
           robot.nextDirection = cell.angleToCell(neighbour)
           return
         }

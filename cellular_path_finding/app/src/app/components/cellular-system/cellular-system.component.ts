@@ -13,7 +13,9 @@ import {GridTemplate} from "../../models/grid-template.model";
 export class CellularSystemComponent implements OnInit {
 
   grid: Grid;
-  templates: GridTemplate[] = GridTemplate.getAllTemplates()
+
+  @Input()
+  templates: GridTemplate[] = []
 
   @Input()
   title: string = "Title"
@@ -33,10 +35,12 @@ export class CellularSystemComponent implements OnInit {
 
   constructor() {
     this.grid = new Grid(10,10)
-    this.templateSelected(this.templates[0])
   }
 
   ngOnInit(): void {
+    if(this.templates.length > 0) {
+      this.templateSelected(this.templates[0])
+    }
   }
 
   next() {

@@ -5,6 +5,7 @@ import {GolRule, GolRuleState} from "./models/gol-rule.model";
 import {interval, Observable, Subscription} from "rxjs";
 import {CellStatus} from "./models/cell.model";
 import {ObstacleAvoidanceRule} from "./models/obstacle-avoidance-rule.model";
+import {GridTemplate} from "./models/grid-template.model";
 
 
 @Component({
@@ -15,7 +16,7 @@ import {ObstacleAvoidanceRule} from "./models/obstacle-avoidance-rule.model";
 export class AppComponent {
 
   title = 'cellular-path-finding';
-
+  templates = GridTemplate.getAllTemplates()
   gameOfLifeRules = GolRule.gameOfLifeRules()
   pathFindingRules = ObstacleAvoidanceRule.goForwardRules()
 

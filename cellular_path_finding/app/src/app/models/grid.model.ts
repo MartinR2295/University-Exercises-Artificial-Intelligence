@@ -136,9 +136,6 @@ export class Grid {
           cell.robot = null
           cell.nextRobot = null
         }
-        if(cell.robot != null) {
-          console.log("robot and cell after", cell, cell.robot)
-        }
       });
     });
   }
