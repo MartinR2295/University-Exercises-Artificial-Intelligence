@@ -19,10 +19,33 @@ export class Robot {
   }
 
   public currentXInFormation() {
-    return this.cell.x - this.formation.robots[0].currentXInFormation()
+    if(this.isMasterInFormation()) {
+      return 0
+    }
+    return this.cell.x - this.formation.robots[0].cell.x
   }
 
   public currentYInFormation() {
     return this.cell.y - this.formation.keepY
+  }
+
+  public currentYInFormationOffset() {
+    return this.currentYInFormation() - this.formY
+  }
+
+  public currentXInFormationOffset() {
+    return this.currentXInFormation() - this.formX
+  }
+
+  public getOtherRobots() {
+    let robots = []
+
+    this.formation.robots.forEach(robot => {
+      if (robot != this) {
+        robots.push(robot)
+      }
+    })
+
+    return robots
   }
 }

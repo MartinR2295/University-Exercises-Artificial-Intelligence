@@ -42,55 +42,72 @@ export class ObstacleAvoidanceRule extends BaseRule {
 
         //move robot if first neighbour is free
         if(i == 0 && neighbour.status == CellStatus.Dead) {
-
+          console.log("move forward")
           // direction control if we have no obstacle in formation direction
           if(robot.direction == 0 && robot.lastDirection == 0) {
             // do formation control stuff
+            let otherRobots = robot.getOtherRobots()
             if(robot.isMasterInFormation()) {
               // do stuff if we are the master
 
               // first check y
               if(robot.currentYInFormation() != 0) {
                 if(robot.currentYInFormation() > 0 && orderedNeighbours[2].status == CellStatus.Dead) {
-                  console.log("change formy >", robot.currentYInFormation())
-                  console.log("neighbours: ", orderedNeighbours[2])
-                  orderedNeighbours[2].nextStatus = CellStatus.Alive
-                  orderedNeighbours[2].nextRobot = robot
-                  cell.nextStatus = CellStatus.Dead
-                  cell.nextRobot = null
+                  cell.moveToNeighbour(orderedNeighbours[2])
                   return
                 } else if(robot.currentYInFormation() < 0 && orderedNeighbours[2].status == CellStatus.Dead) {
-                  console.log("change formy <")
-                  orderedNeighbours[1].nextStatus = CellStatus.Alive
-                  orderedNeighbours[1].nextRobot = robot
-                  cell.nextStatus = CellStatus.Dead
-                  cell.nextRobot = null
+                  cell.moveToNeighbour(orderedNeighbours[1])
                   return
                 }
               } else {
+                // ask the slaves if they have the right x position
 
+                // if any slave is in front, move master and return
+                for(let rbt of otherRobots) {
+                  if(rbt.currentXInFormationOffset() > 0) {
+                    cell.moveToNeighbour(neighbour)
+                    console.log("slave in front", rbt, rbt.currentXInFormationOffset(), rbt.currentXInFormation())
+                    return
+                  }
+                }
+
+                // if one slave is back, do nothing with master and return
+                for(let rbt of otherRobots) {
+                  if(rbt.currentXInFormationOffset() < 0) {
+                    console.log("slave back")
+                    cell.nextRobot = cell.robot
+                    return
+                  }
+                }
+
+                // if every slave is in the right x position move in front
+                cell.moveToNeighbour(neighbour)
+                console.log("all slaves in position")
+                return
               }
-              // then change y pos
-
-              //if y is correct, do x stuff
-
-              // ask the slaves if they have the right x position
-
-              // if any slave is in front, move master and return
-
-              // if one slave is back, do nothing with master and return
-
-              // if every slave is in the right x position move in front
             } else {
               // do stuff if we are the slave
+              // first check y
+              if(robot.currentYInFormationOffset() != 0) {
+                if(robot.currentYInFormationOffset() > 0 && orderedNeighbours[2].status == CellStatus.Dead) {
+                  cell.moveToNeighbour(orderedNeighbours[2])
+                  return
+                } else if(robot.currentYInFormationOffset() < 0 && orderedNeighbours[2].status == CellStatus.Dead) {
+                  cell.moveToNeighbour(orderedNeighbours[1])
+                  return
+                }
+              } else {
+                //do x stuff
+                console.log("move slave")
+                if(robot.currentXInFormationOffset() > 0) {
+                  cell.nextRobot = cell.robot
+                  return
+                }
+              }
             }
           }
-
-
-          cell.nextStatus = CellStatus.Dead
-          cell.nextRobot = null
-          neighbour.nextStatus = CellStatus.Alive
-          neighbour.nextRobot = cell.robot
+          console.log("move forward to neighbour")
+          cell.moveToNeighbour(neighbour)
 
           return
         }

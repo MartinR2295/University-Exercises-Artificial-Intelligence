@@ -32,6 +32,13 @@ export class Cell {
     result *= 180 / Math.PI
     return result
   }
+
+  moveToNeighbour(neighbour: Cell) {
+    this.nextStatus = CellStatus.Dead
+    this.nextRobot = null
+    neighbour.nextStatus = CellStatus.Alive
+    neighbour.nextRobot = this.robot
+  }
 }
 
 export enum CellStatus {
