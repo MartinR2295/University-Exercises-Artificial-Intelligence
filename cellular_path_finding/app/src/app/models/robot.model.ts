@@ -13,4 +13,16 @@ export class Robot {
                      public cell: Cell,
                      public formation: Formation) {
   }
+
+  public isMasterInFormation() {
+    return this.formation.robots[0] == this;
+  }
+
+  public currentXInFormation() {
+    return this.cell.x - this.formation.robots[0].currentXInFormation()
+  }
+
+  public currentYInFormation() {
+    return this.cell.y - this.formation.keepY
+  }
 }

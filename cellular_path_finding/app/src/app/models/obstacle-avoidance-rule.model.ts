@@ -29,7 +29,6 @@ export class ObstacleAvoidanceRule extends BaseRule {
       this.inputDirection = robot.direction
       let orderedNeighbours = this.orderNeighboursToDirection(neighbours)
 
-      console.log("neighbours: ", orderedNeighbours)
       // move the robot to formation direction if possible
       if(robot.direction != 0
         && formationOrderedNeighbours[0].status == CellStatus.Dead) {
@@ -43,6 +42,51 @@ export class ObstacleAvoidanceRule extends BaseRule {
 
         //move robot if first neighbour is free
         if(i == 0 && neighbour.status == CellStatus.Dead) {
+
+          // direction control if we have no obstacle in formation direction
+          if(robot.direction == 0 && robot.lastDirection == 0) {
+            // do formation control stuff
+            if(robot.isMasterInFormation()) {
+              // do stuff if we are the master
+
+              // first check y
+              if(robot.currentYInFormation() != 0) {
+                if(robot.currentYInFormation() > 0 && orderedNeighbours[2].status == CellStatus.Dead) {
+                  console.log("change formy >", robot.currentYInFormation())
+                  console.log("neighbours: ", orderedNeighbours[2])
+                  orderedNeighbours[2].nextStatus = CellStatus.Alive
+                  orderedNeighbours[2].nextRobot = robot
+                  cell.nextStatus = CellStatus.Dead
+                  cell.nextRobot = null
+                  return
+                } else if(robot.currentYInFormation() < 0 && orderedNeighbours[2].status == CellStatus.Dead) {
+                  console.log("change formy <")
+                  orderedNeighbours[1].nextStatus = CellStatus.Alive
+                  orderedNeighbours[1].nextRobot = robot
+                  cell.nextStatus = CellStatus.Dead
+                  cell.nextRobot = null
+                  return
+                }
+              } else {
+
+              }
+              // then change y pos
+
+              //if y is correct, do x stuff
+
+              // ask the slaves if they have the right x position
+
+              // if any slave is in front, move master and return
+
+              // if one slave is back, do nothing with master and return
+
+              // if every slave is in the right x position move in front
+            } else {
+              // do stuff if we are the slave
+            }
+          }
+
+
           cell.nextStatus = CellStatus.Dead
           cell.nextRobot = null
           neighbour.nextStatus = CellStatus.Alive

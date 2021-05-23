@@ -1,3 +1,14 @@
 block the cell when the robot goes back.
 So we need to use the current direction. If the robot goes to the right, we also need
 to change the direction to right, to detect if the robot take a step back.
+
+
+Formation Control
+
+Master decides about x position.
+
+if some cell doesn't have obstacle in 0 direction,
+it checks it's formation and do one step to the right one.
+
+We don't make steps back, if one robot is to far ahead,
+it waits and do y axis changes if needed.

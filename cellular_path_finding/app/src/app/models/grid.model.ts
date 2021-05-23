@@ -70,14 +70,17 @@ export class Grid {
   switchMarkedCells() {
     this.raw_grid.forEach(function(row) {
       row.forEach(function (cell) {
-        if(cell.nextStatus != null) {
-          cell.status = cell.nextStatus
-          cell.nextStatus = null
+        if(cell.robot != null) {
+          cell.robot.lastDirection = cell.robot.direction
         }
         if(cell.robot != null && cell.robot.nextDirection != null) {
           cell.robot.direction = cell.robot.nextDirection
           cell.robot.nextDirection = null
           return
+        }
+        if(cell.nextStatus != null) {
+          cell.status = cell.nextStatus
+          cell.nextStatus = null
         }
         if(cell.status == CellStatus.Alive && cell.nextRobot != null) {
           cell.robot = cell.nextRobot
