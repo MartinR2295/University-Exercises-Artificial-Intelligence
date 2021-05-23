@@ -22,12 +22,24 @@ export class ObstacleAvoidanceRule extends BaseRule {
       neighbours = this.orderNeighboursToDirection(neighbours)
       console.log("ordered neighbours: of", cell, neighbours)
       cell.nextStatus = CellStatus.Dead
+      console.log("formation", cell.robot.formation)
 
+      // formation control if we have no obstacle in front
+      /*if(neighbours[0].status == CellStatus.Dead) {
+        // move to the fixedY
+        let yDiff = cell.y - cell.robot.formation.keepY;
+        if (yDiff != 0) {
+          
+        }
+
+        // wait for the other ones.
+      }*/
 
       for(let neighbour of neighbours) {
         if(neighbour.status == CellStatus.Dead) {
           neighbour.nextStatus = CellStatus.Alive
           cell.nextStatus = CellStatus.Dead
+          neighbour.nextRobot = cell.robot
           break
         }
       }

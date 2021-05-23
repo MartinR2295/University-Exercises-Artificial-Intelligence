@@ -1,14 +1,17 @@
-import {Cell} from "./cell.model";
+import {Cell, CellStatus} from "./cell.model";
 import {BaseRule} from "./base-rule.model";
+import {Formation} from "./formation.model";
 
 export class Grid {
   raw_grid:Cell[][];
+  formation: Formation;
 
   constructor(height: number, width: number) {
     this.raw_grid = []
     for(let y = 0; y < height; y++) {
       this.addRow(width)
     }
+    this.formation = new Formation()
   }
 
   addRow(width: number) {
@@ -71,8 +74,13 @@ export class Grid {
           cell.status = cell.nextStatus
           cell.nextStatus = null
         }
-        if(cell.nextIndex != null) {
-          cell.index = cell.nextIndex
+        if(cell.status == CellStatus.Alive && cell.nextRobot != null) {
+          cell.robot = cell.nextRobot
+          cell.robot.cell = cell
+          cell.nextRobot = null
+        } else {
+          cell.robot = null
+          cell.nextRobot = null
         }
       });
     });

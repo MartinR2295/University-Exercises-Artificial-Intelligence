@@ -30,6 +30,16 @@ export class GridComponent implements OnInit {
   }
 
   click_on_cell(cell: Cell) {
+    if(cell.robot != null) { // remove the robot from formation
+      this.grid.formation.deleteRobot(cell.robot);
+      cell.robot = null;
+    }
     cell.status = cell.status == CellStatus.Dead ? this.cellCreationType : CellStatus.Dead;
+
+    if(cell.status == CellStatus.Alive) { // add robot to the formation
+      this.grid.formation.addRobotToCell(cell)
+      console.log("add robot: ", cell.robot)
+    }
   }
+
 }

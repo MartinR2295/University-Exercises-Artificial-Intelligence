@@ -1,13 +1,15 @@
 import {Formation} from "./formation.model";
+import {Robot} from "./robot.model";
 
 export class Cell {
 
   nextStatus: CellStatus = null
-  nextIndex: number = null
+  nextRobot: Robot = null
+  robot: Robot = null
 
-  constructor(public y: number, public x: number, public status: CellStatus = CellStatus.Dead,
-              public index: number = -1,
-              formation: Formation = null) {
+  constructor(public y: number,
+              public x: number,
+              public status: CellStatus = CellStatus.Dead) {
 
   }
 
@@ -16,12 +18,12 @@ export class Cell {
   }
 
   kill() {
-    this.index = -1
+    this.robot = null
     this.status = CellStatus.Dead
   }
 
-  revive(newIndex: number = null) {
-    if(newIndex != null) this.index = newIndex
+  revive(newRobot: Robot = null) {
+    if(newRobot != null) this.robot = newRobot
     this.status = CellStatus.Dead
   }
 }
