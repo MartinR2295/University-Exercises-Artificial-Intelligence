@@ -53,10 +53,10 @@ export class ObstacleAvoidanceRule extends BaseRule {
               // first check y
               if(robot.currentYInFormation() != 0) {
                 if(robot.currentYInFormation() > 0 && orderedNeighbours[2].status == CellStatus.Dead && orderedNeighbours[2].nextStatus != CellStatus.Alive) {
-                  cell.moveToNeighbour(orderedNeighbours[2])
+                  this.moveToNeighbour(cell, orderedNeighbours[2])
                   return
                 } else if(robot.currentYInFormation() < 0 && orderedNeighbours[1].status == CellStatus.Dead && orderedNeighbours[1].nextStatus != CellStatus.Alive) {
-                  cell.moveToNeighbour(orderedNeighbours[1])
+                  this.moveToNeighbour(cell, orderedNeighbours[1])
                   return
                 }
               } else {
@@ -65,7 +65,7 @@ export class ObstacleAvoidanceRule extends BaseRule {
                 // if any slave is in front, move master and return
                 for(let rbt of otherRobots) {
                   if(rbt.currentXInFormationOffset() > 0) {
-                    cell.moveToNeighbour(neighbour)
+                    this.moveToNeighbour(cell, neighbour)
                     console.log("slave in front", rbt, rbt.currentXInFormationOffset(), rbt.currentXInFormation())
                     return
                   }
@@ -81,7 +81,7 @@ export class ObstacleAvoidanceRule extends BaseRule {
                 }
 
                 // if every slave is in the right x position move in front
-                cell.moveToNeighbour(neighbour)
+                this.moveToNeighbour(cell, neighbour)
                 console.log("all slaves in position")
                 return
               }
@@ -90,10 +90,10 @@ export class ObstacleAvoidanceRule extends BaseRule {
               // first check y
               if(robot.currentYInFormationOffset() != 0) {
                 if(robot.currentYInFormationOffset() > 0 && orderedNeighbours[2].status == CellStatus.Dead && orderedNeighbours[2].nextStatus != CellStatus.Alive) {
-                  cell.moveToNeighbour(orderedNeighbours[2])
+                  this.moveToNeighbour(cell, orderedNeighbours[2])
                   return
                 } else if(robot.currentYInFormationOffset() < 0 && orderedNeighbours[1].status == CellStatus.Dead && orderedNeighbours[1].nextStatus != CellStatus.Alive) {
-                  cell.moveToNeighbour(orderedNeighbours[1])
+                  this.moveToNeighbour(cell, orderedNeighbours[1])
                   return
                 }
               } else {
@@ -108,7 +108,7 @@ export class ObstacleAvoidanceRule extends BaseRule {
           }
           console.log("move forward to neighbour")
           if(neighbour.nextStatus != CellStatus.Alive) {
-            cell.moveToNeighbour(neighbour)
+            this.moveToNeighbour(cell, neighbour)
           }
           cell.nextRobot = cell.robot
           return
@@ -124,6 +124,12 @@ export class ObstacleAvoidanceRule extends BaseRule {
     }
   }
 
+  moveToNeighbour(cell, neighbour) {
+    if(Math.abs(cell.x - neighbour.x) > 1 || Math.abs(cell.y - neighbour.y)) {
+      // reset
+    }
+    cell.moveToNeighbour(neighbour)
+  }
 
   orderNeighboursToDirection(neighbours: Cell[]) {
     let orderedNeighbours: Cell[] = []
