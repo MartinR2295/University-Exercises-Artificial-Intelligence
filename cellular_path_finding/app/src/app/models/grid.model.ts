@@ -74,6 +74,11 @@ export class Grid {
           cell.status = cell.nextStatus
           cell.nextStatus = null
         }
+        if(cell.robot != null && cell.robot.nextDirection != null) {
+          cell.robot.direction = cell.robot.nextDirection
+          cell.robot.nextDirection = null
+          return
+        }
         if(cell.status == CellStatus.Alive && cell.nextRobot != null) {
           cell.robot = cell.nextRobot
           cell.robot.cell = cell
@@ -81,6 +86,9 @@ export class Grid {
         } else {
           cell.robot = null
           cell.nextRobot = null
+        }
+        if(cell.robot != null) {
+          console.log("robot and cell after", cell, cell.robot)
         }
       });
     });

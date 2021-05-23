@@ -5,7 +5,7 @@ export class ObstacleAvoidanceRule extends BaseRule {
 
   static goForwardRules() {
     return [
-      new ObstacleAvoidanceRule([], 90, ObstacleAvoidanceRuleState.Alive, 0)
+      new ObstacleAvoidanceRule([], 0, ObstacleAvoidanceRuleState.Alive, 0)
     ]
   }
 
@@ -18,58 +18,80 @@ export class ObstacleAvoidanceRule extends BaseRule {
 
   applyOn(cell: Cell, neighbours: Cell[]){
     if(cell.status == CellStatus.Alive) {
-      console.log("neighbours of: ", cell, neighbours)
-      neighbours = this.orderNeighboursToDirection(neighbours)
-      console.log("ordered neighbours: of", cell, neighbours)
-      cell.nextStatus = CellStatus.Dead
-      console.log("formation", cell.robot.formation)
+      // get the robot
+      console.log("robot and cell before", cell, cell.robot)
+      let robot = cell.robot
 
-      // formation control if we have no obstacle in front
-      /*if(neighbours[0].status == CellStatus.Dead) {
-        // move to the fixedY
-        let yDiff = cell.y - cell.robot.formation.keepY;
-        if (yDiff != 0) {
-          
+      //get ordered neighbours in relation to zero angle of formation
+      this.inputDirection = 0
+      let formationOrderedNeighbours = this.orderNeighboursToDirection(neighbours)
+      // get orderedNeighbours in formation direction
+      this.inputDirection = robot.direction
+      let orderedNeighbours = this.orderNeighboursToDirection(neighbours)
+
+      console.log("neighbours: ", orderedNeighbours)
+      // move the robot to formation direction if possible
+      if(robot.direction != 0
+        && formationOrderedNeighbours[0].status == CellStatus.Dead) {
+        robot.nextDirection = 0;
+        return
+      }
+
+      // move the robot or change direction
+      for(let i = 0; i < orderedNeighbours.length; i++) {
+        let neighbour = orderedNeighbours[i];
+
+        //move robot if first neighbour is free
+        if(i == 0 && neighbour.status == CellStatus.Dead) {
+          cell.nextStatus = CellStatus.Dead
+          cell.nextRobot = null
+          neighbour.nextStatus = CellStatus.Alive
+          neighbour.nextRobot = cell.robot
+
+          return
         }
 
-        // wait for the other ones.
-      }*/
-
-      for(let neighbour of neighbours) {
+        //turn robot if we need a new direction
         if(neighbour.status == CellStatus.Dead) {
-          neighbour.nextStatus = CellStatus.Alive
-          cell.nextStatus = CellStatus.Dead
-          neighbour.nextRobot = cell.robot
-          break
+          console.log("turn ", cell)
+          robot.nextDirection = cell.angleToCell(neighbour)
+          return
         }
       }
     }
   }
+
 
   orderNeighboursToDirection(neighbours: Cell[]) {
     let orderedNeighbours: Cell[] = []
 
     switch (this.inputDirection) {
       case 0: {
-        orderedNeighbours.push(neighbours[6])
-        orderedNeighbours.push(neighbours[5])
-        orderedNeighbours.push(neighbours[7])
-        orderedNeighbours.push(neighbours[3])
         orderedNeighbours.push(neighbours[4])
+        orderedNeighbours.push(neighbours[6])
         orderedNeighbours.push(neighbours[1])
-        orderedNeighbours.push(neighbours[0])
-        orderedNeighbours.push(neighbours[2])
+        orderedNeighbours.push(neighbours[3])
         break
       }
       case 90: {
-        orderedNeighbours.push(neighbours[4])
-        orderedNeighbours.push(neighbours[7])
-        orderedNeighbours.push(neighbours[2])
         orderedNeighbours.push(neighbours[6])
-        orderedNeighbours.push(neighbours[1])
         orderedNeighbours.push(neighbours[3])
-        orderedNeighbours.push(neighbours[5])
-        orderedNeighbours.push(neighbours[0])
+        orderedNeighbours.push(neighbours[4])
+        orderedNeighbours.push(neighbours[1])
+        break
+      }
+      case -90: {
+        orderedNeighbours.push(neighbours[1])
+        orderedNeighbours.push(neighbours[4])
+        orderedNeighbours.push(neighbours[3])
+        orderedNeighbours.push(neighbours[6])
+        break
+      }
+      case 180: {
+        orderedNeighbours.push(neighbours[3])
+        orderedNeighbours.push(neighbours[6])
+        orderedNeighbours.push(neighbours[4])
+        orderedNeighbours.push(neighbours[1])
         break
       }
       default: {

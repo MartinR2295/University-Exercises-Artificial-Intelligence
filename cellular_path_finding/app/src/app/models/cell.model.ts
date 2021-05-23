@@ -26,6 +26,12 @@ export class Cell {
     if(newRobot != null) this.robot = newRobot
     this.status = CellStatus.Dead
   }
+
+  angleToCell(other: Cell) {
+    let result = Math.atan2(other.y - this.y, other.x - this.x)
+    result *= 180 / Math.PI
+    return result
+  }
 }
 
 export enum CellStatus {
